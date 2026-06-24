@@ -1,5 +1,4 @@
-name: Build 
-
+name: Build
 on:
   workflow_dispatch: # This allows you to trigger the build manually
 
@@ -23,8 +22,8 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        
-- name: Configure the Firmware Build
+
+    - name: Configure the Firmware Build
       run: |
         # 1. Set the target router architecture
         echo "CONFIG_TARGET_ramips=y" > .config
@@ -39,6 +38,7 @@ jobs:
         echo "CONFIG_PACKAGE_luci=y" >> .config
         echo "CONFIG_PACKAGE_uhttpd=y" >> .config
         
+        # Expand these basic settings into a full OpenWrt configuration
         make defconfig
 
     - name: Download Required Packages
