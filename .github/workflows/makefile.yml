@@ -37,13 +37,13 @@ jobs:
         echo "CONFIG_PACKAGE_wireguard-tools=y" >> .config
         echo "CONFIG_PACKAGE_kmod-wireguard=y" >> .config
         
-        # Keep LuCI base, but remove the heavy components
-        echo "CONFIG_PACKAGE_luci-base=y" >> .config
-        echo "CONFIG_PACKAGE_luci-mod-admin-full=y" >> .config
-        echo "# CONFIG_PACKAGE_luci-app-firewall is not set" >> .config
-        echo "# CONFIG_PACKAGE_luci-app-opkg is not set" >> .config
-        echo "# CONFIG_PACKAGE_luci-proto-ppp is not set" >> .config
-        echo "# CONFIG_PACKAGE_luci-proto-ipv6 is not set" >> .config
+        # 3. Explicitly REMOVE LuCI and Web Server to save space
+        echo "# CONFIG_PACKAGE_luci is not set" >> .config
+        echo "# CONFIG_PACKAGE_uhttpd is not set" >> .config
+        
+        # 4. Additional space-saving tweaks
+        echo "CONFIG_CLEAN_IPKG=y" >> .config
+        echo "CONFIG_STRIP_KERNEL_EXPORTS=y" >> .config
         
         # Expand these basic settings into a full OpenWrt configuration
         make defconfig
