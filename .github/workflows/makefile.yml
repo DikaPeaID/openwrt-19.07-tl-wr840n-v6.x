@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Required for older OpenWrt 19.07 toolchains
+    runs-on: ubuntu-22.04 # Required for older OpenWrt 19.07 toolchains
 
     steps:
     - name: Checkout Repository
