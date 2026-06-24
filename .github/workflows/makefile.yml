@@ -37,9 +37,13 @@ jobs:
         echo "CONFIG_PACKAGE_wireguard-tools=y" >> .config
         echo "CONFIG_PACKAGE_kmod-wireguard=y" >> .config
         
-        # 3. Explicitly Include the Web Interface (LuCI)
-        echo "CONFIG_PACKAGE_luci=y" >> .config
-        echo "CONFIG_PACKAGE_uhttpd=y" >> .config
+        # Keep LuCI base, but remove the heavy components
+        echo "CONFIG_PACKAGE_luci-base=y" >> .config
+        echo "CONFIG_PACKAGE_luci-mod-admin-full=y" >> .config
+        echo "# CONFIG_PACKAGE_luci-app-firewall is not set" >> .config
+        echo "# CONFIG_PACKAGE_luci-app-opkg is not set" >> .config
+        echo "# CONFIG_PACKAGE_luci-proto-ppp is not set" >> .config
+        echo "# CONFIG_PACKAGE_luci-proto-ipv6 is not set" >> .config
         
         # Expand these basic settings into a full OpenWrt configuration
         make defconfig
